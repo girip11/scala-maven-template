@@ -10,7 +10,7 @@ This will prompt us to enter details for artifactID etc.
 
 ## Useful Maven commands
 
-* `mvn package`
+* `mvn clean package`
 * `mvn scala:run -DmainClass=com.girish.playground.MainClass`
 
 ---
