@@ -18,9 +18,11 @@
     <maven.compiler.source>1.8</maven.compiler.source>
     <maven.compiler.target>1.8</maven.compiler.target>
     <encoding>UTF-8</encoding>
-    <scala.version>2.12.13</scala.version>
+    <!-- Tools like scoverage have issues with 2.12.13. Ex: https://github.com/scoverage/sbt-scoverage/issues/319 -->
+    <scala.version>2.12.12</scala.version>
     <scala.compat.version>2.12</scala.compat.version>
     <spec2.version>4.2.0</spec2.version>
+    <scoverage.plugin.version>1.4.1</scoverage.plugin.version>
   </properties>
 
   <dependencies>
@@ -53,6 +55,7 @@
     <sourceDirectory>src/main/scala</sourceDirectory>
     <testSourceDirectory>src/test/scala</testSourceDirectory>
     <plugins>
+      <!-- https://blog.knoldus.com/maven-plugins-for-scala-code-quality/-->
       <plugin>
         <!-- see http://davidb.github.com/scala-maven-plugin -->
         <groupId>net.alchim31.maven</groupId>
@@ -128,6 +131,66 @@
           </execution>
         </executions>
       </plugin>
+      <plugin>
+        <groupId>org.scalastyle</groupId>
+        <artifactId>scalastyle-maven-plugin</artifactId>
+        <version>1.0.0</version>
+        <configuration>
+          <failOnViolation>true</failOnViolation>
+          <failOnWarning>false</failOnWarning>
+          <verbose>false</verbose>
+          <includeTestSourceDirectory>true</includeTestSourceDirectory>
+          <sourceDirectory>${basedir}/src/main/scala</sourceDirectory>
+          <testSourceDirectory>${basedir}/src/test/scala</testSourceDirectory>
+          <configLocation>${basedir}/scalastyle_config.xml</configLocation>
+          <outputFile>${project.basedir}/target/scalastyle-output.xml</outputFile>
+          <outputEncoding>UTF-8</outputEncoding>
+        </configuration>
+        <executions>
+          <execution>
+            <goals>
+              <goal>check</goal>
+            </goals>
+          </execution>
+        </executions>
+      </plugin>
+      <plugin>
+        <!-- http://scoverage.github.io/scoverage-maven-plugin/1.4.0/plugin-info.html-->
+        <groupId>org.scoverage</groupId>
+        <artifactId>scoverage-maven-plugin</artifactId>
+        <version>${scoverage.plugin.version}</version>
+        <configuration>
+          <scalaVersion>${scala.version}</scalaVersion>
+          <highlighting>true</highlighting>
+          <minimumCoverage>80</minimumCoverage>
+          <failOnMinimumCoverage>true</failOnMinimumCoverage>
+          <aggregate>true</aggregate>
+        </configuration>
+        <executions>
+          <execution>
+            <goals>
+              <goal>check</goal> <!-- or integration-check -->
+            </goals>
+          </execution>
+        </executions>
+      </plugin>
     </plugins>
   </build>
+
+  <reporting>
+    <plugins>
+      <plugin>
+        <groupId>org.scoverage</groupId>
+        <artifactId>scoverage-maven-plugin</artifactId>
+        <version>${scoverage.plugin.version}</version>
+        <reportSets>
+          <reportSet>
+            <reports>
+              <report>report</report> <!-- select only one report from: report, integration-report and report-only reporters -->
+            </reports>
+          </reportSet>
+        </reportSets>
+      </plugin>
+    </plugins>
+  </reporting>
 </project>
