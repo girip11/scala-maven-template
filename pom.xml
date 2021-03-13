@@ -71,10 +71,30 @@
               <args>
                 <arg>-dependencyfile</arg>
                 <arg>${project.build.directory}/.scala_dependencies</arg>
+                <arg>-Xlint:unused</arg> <!-- if you need exactly RemoveUnused -->
               </args>
+              <compilerPlugins>
+                <compilerPlugin>
+                  <groupId>org.scalameta</groupId>
+                  <artifactId>semanticdb-scalac_${scala.version}</artifactId>
+                  <version>4.4.10</version>
+                </compilerPlugin>
+              </compilerPlugins>
             </configuration>
           </execution>
         </executions>
+      </plugin>
+      <plugin>
+        <!-- https://scalacenter.github.io/scalafix/docs/users/configuration.html
+        https://github.com/evis/scalafix-maven-plugin-->
+        <groupId>io.github.evis</groupId>
+        <artifactId>scalafix-maven-plugin</artifactId>
+        <version>0.1.4_0.9.23</version>
+        <configuration>
+          <mode>IN_PLACE</mode>
+          <config>${basedir}/.scalafix.conf</config>
+          <skipTest>true</skipTest>
+        </configuration>
       </plugin>
       <plugin>
         <!-- Documentation: https://maven.apache.org/plugins/maven-assembly-plugin-->
