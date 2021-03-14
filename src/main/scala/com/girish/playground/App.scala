@@ -9,7 +9,7 @@ import com.typesafe.scalalogging._
 object MainClass extends App {
 
   val logger = Logger(MainClass.getClass)
-  /**
+  /** Says Hello to the name given as input.
    *
    * @param name
    */

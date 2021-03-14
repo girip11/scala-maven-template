@@ -10,8 +10,11 @@ This will prompt us to enter details for artifactID etc.
 
 ## Useful Maven commands
 
-* `mvn clean package`
+* `mvn clean package` - compile and package
 * `mvn scala:run -DmainClass=com.girish.playground.MainClass`
+* `mvn scalastyle:check` - style checker
+* `mvn scala:doc` - generates scaladoc
+* `mvn clean compile test-compile scalafix:scalafix` - runs scalafix on the source. Requires compilation goal to precede it.
 
 ---
 
