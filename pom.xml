@@ -84,8 +84,15 @@
           </execution>
         </executions>
       </plugin>
-      <!--Alternatively we can configure intelliJ to format the files on save.-->
       <plugin>
+        <groupId>org.apache.maven.plugins</groupId>
+        <artifactId>maven-site-plugin</artifactId>
+        <version>3.9.1</version>
+        <!--All plugins under reportPlugins should be placed inside the reporting element.
+         http://wiki.bitplan.com/index.php/MNG-6189-->
+      </plugin>
+      <plugin>
+        <!--Alternatively we can configure intelliJ to format the files on save.-->
         <groupId>org.antipathy</groupId>
         <artifactId>mvn-scalafmt_${scala.compat.version}</artifactId>
         <version>1.0.1614576627.86a5663</version>
@@ -216,6 +223,22 @@
 
   <reporting>
     <plugins>
+      <plugin>
+        <groupId>org.apache.maven.plugins</groupId>
+        <artifactId>maven-project-info-reports-plugin</artifactId>
+        <version>3.1.1</version>
+      </plugin>
+      <plugin>
+        <groupId>net.alchim31.maven</groupId>
+        <artifactId>scala-maven-plugin</artifactId>
+        <version>4.4.1</version>
+        <configuration>
+          <jvmArgs>
+            <jvmArg>-Xms64m</jvmArg>
+            <jvmArg>-Xmx1024m</jvmArg>
+          </jvmArgs>
+        </configuration>
+      </plugin>
       <plugin>
         <groupId>org.scoverage</groupId>
         <artifactId>scoverage-maven-plugin</artifactId>
