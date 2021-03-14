@@ -30,9 +30,17 @@
       <groupId>org.scala-lang</groupId>
       <artifactId>scala-library</artifactId>
       <version>${scala.version}</version>
-      <scope>compile</scope>
     </dependency>
-
+    <dependency>
+      <groupId>com.typesafe.scala-logging</groupId>
+      <artifactId>scala-logging_${scala.compat.version}</artifactId>
+      <version>3.9.2</version>
+    </dependency>
+    <dependency>
+      <groupId>ch.qos.logback</groupId>
+      <artifactId>logback-classic</artifactId>
+      <version>1.2.3</version>
+    </dependency>
     <!-- Test -->
     <dependency>
       <!-- https://www.scalatest.org/getting_started_with_junit_4_in_scala-->
@@ -61,6 +69,14 @@
         <groupId>net.alchim31.maven</groupId>
         <artifactId>scala-maven-plugin</artifactId>
         <version>4.4.1</version>
+        <configuration>
+          <launchers>
+            <launcher>
+              <id>driver</id>
+              <mainClass>com.girish.playground.MainClass</mainClass>
+            </launcher>
+          </launchers>
+        </configuration>
         <executions>
           <execution>
             <goals>
