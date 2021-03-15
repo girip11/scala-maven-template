@@ -57,6 +57,14 @@
       <version>3.0.9</version>
       <scope>test</scope>
     </dependency>
+    <dependency>
+      <!--https://scalamock.org/quick-start/
+      https://scalamock.org/user-guide/mocking_style/-->
+      <groupId>org.scalamock</groupId>
+      <artifactId>scalamock_${scala.compat.version}</artifactId>
+      <version>5.1.0</version>
+      <scope>test</scope>
+    </dependency>
   </dependencies>
 
   <build>
@@ -180,7 +188,7 @@
           <junitxml>.</junitxml>
           <filereports>TestSuiteReport.txt</filereports>
           <!-- Comma separated list of JUnit test class names to execute -->
-          <jUnitClasses>samples.AppTest</jUnitClasses>
+          <!-- <jUnitClasses>samples.AppTest</jUnitClasses>-->
         </configuration>
         <executions>
           <execution>

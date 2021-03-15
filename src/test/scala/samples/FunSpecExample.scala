@@ -24,13 +24,25 @@ http://www.scalatest.org/
 One way to use ScalaTest is to help make JUnit or TestNG tests more
 clear and concise. Here's an example:
  */
-import org.scalatest.FlatSpec
+import org.scalatest.{FunSpec, Matchers}
 
-class ListSpec extends FlatSpec {
+// Used in Behavior Driven Development.
+class FunSpecExample extends FunSpec with Matchers {
+  // we can use describe with it or they
+  // In tests we could either use asserts or matchers which provided clauses like should be
+  // should be thrownBy etc
 
-  "A List" should "should be immutable" in {
-    val list = List[Int](1, 2, 3, 4)
-    assert(list.head === 1)
-    assert(list.last === 4)
+  describe("A Set") {
+    describe("when empty") {
+      it("should have size 0") {
+        assert(Set.empty.size === 0)
+      }
+
+      it("should produce NoSuchElementException when head is invoked") {
+        a[NoSuchElementException] should be thrownBy {
+          Set.empty.head
+        }
+      }
+    }
   }
 }
