@@ -15,6 +15,11 @@ This will prompt us to enter details for artifactID etc.
 * `mvn scalastyle:check` - style checker
 * `mvn scala:doc` - generates scaladoc
 * `mvn clean compile test-compile scalafix:scalafix` - runs scalafix on the source. Requires compilation goal to precede it.
+* `mvn test` - to run all tests
+* `mvn test -Dparallel=true` - run tests in parallel
+* `mvn test -DtagsToInclude=SizeTest` - Run by tags
+
+To  use scalatest maven plugin, refer to the [usage page here](https://www.scalatest.org/user_guide/using_the_scalatest_maven_plugin)
 
 ---
 

@@ -24,7 +24,10 @@ http://www.scalatest.org/
 One way to use ScalaTest is to help make JUnit or TestNG tests more
 clear and concise. Here's an example:
  */
-import org.scalatest.{FunSpec, Matchers}
+import org.scalatest.{FunSpec, Matchers, Tag}
+
+// This is how we define a scalatest tag
+object SizeTest extends Tag("SizeTest")
 
 // Used in Behavior Driven Development.
 class FunSpecExample extends FunSpec with Matchers {
@@ -34,13 +37,35 @@ class FunSpecExample extends FunSpec with Matchers {
 
   describe("A Set") {
     describe("when empty") {
-      it("should have size 0") {
+      it("should have size 0", SizeTest) {
+        // using === prints the actual and expected when the test fails
         assert(Set.empty.size === 0)
       }
 
+      // TODO tests are written using pending
+      it("should have tail pointing to empty set", SizeTest)(pending)
+
+      it("should have size 0 (intentionally failing)", SizeTest) {
+        //using assertResult also prints the actual and expected
+        assertResult(1) {
+          Set.empty.size
+        }
+      }
+
       it("should produce NoSuchElementException when head is invoked") {
+        // This is one way of checking
         a[NoSuchElementException] should be thrownBy {
           Set.empty.head
+        }
+
+        // intercept can be used to catch the exception and inspect it
+        // if the enclosing code does not throw the expected exception, the test fails
+        val ex = intercept[NoSuchElementException] {
+          Set.empty.head
+        }
+
+        assertResult(classOf[NoSuchElementException]) {
+          ex.getClass
         }
       }
     }

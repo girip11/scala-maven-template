@@ -36,7 +36,7 @@ class FlatSpecExample extends FlatSpec with Matchers {
     }
   }
 
-  //way to ignore a test
+  //way to ignore a test(temporarily disabling)
   ignore should "let us check a list is empty" in {
     List.empty shouldBe empty
   }
