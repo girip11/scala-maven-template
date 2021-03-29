@@ -1,5 +1,7 @@
 package samples
 
+//scalastyle:off regex.println
+
 import org.scalatest.{BeforeAndAfter, FunSuite}
 
 // FunSuite tests are similar to writing tests using XUnit
